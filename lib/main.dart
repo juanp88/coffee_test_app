@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'routes/app_router.dart';
-import 'utils/app_strings.dart';
+import 'Core/Routes/app_router.dart';
+import 'Core/utils/app_strings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

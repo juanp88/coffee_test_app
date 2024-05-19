@@ -1,10 +1,10 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../Core/Providers/coffee_providers.dart';
 import '../../Domain/usecases/fetch_image_usecase.dart';
 import '../../Domain/usecases/get_favorite_images_usecase.dart';
 import '../../Domain/usecases/save_image_usecase.dart';
-import '../../providers/coffee_providers.dart';
 
 part 'coffee_notifier.g.dart';
 

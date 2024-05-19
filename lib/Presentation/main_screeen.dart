@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/app_strings.dart';
+import '../Core/utils/app_strings.dart';
 import 'favorites_screen.dart';
 import 'new_image_screen.dart';
 

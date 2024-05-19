@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../Core/Providers/coffee_providers.dart';
 import '../../Domain/usecases/get_favorite_images_usecase.dart';
-import '../../providers/coffee_providers.dart';
 
 part 'favorites_notifier.g.dart';
 

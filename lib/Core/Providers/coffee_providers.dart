@@ -1,15 +1,15 @@
-import 'package:coffee_test_app/utils/constants.dart';
+import 'package:coffee_test_app/Core/utils/constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../Data/local/local_storage_service.dart';
-import '../Data/remote/api_service.dart';
-import '../Data/repositories/coffee_local_repository_impl.dart';
-import '../Data/repositories/coffee_remote_repository_impl.dart';
-import '../Domain/repository/coffee_local_repository.dart';
-import '../Domain/repository/coffee_remote_repository.dart';
-import '../Domain/usecases/fetch_image_usecase.dart';
-import '../Domain/usecases/get_favorite_images_usecase.dart';
-import '../Domain/usecases/save_image_usecase.dart';
+import '../../Data/local/local_storage_service.dart';
+import '../../Data/remote/api_service.dart';
+import '../../Data/repositories/coffee_local_repository_impl.dart';
+import '../../Data/repositories/coffee_remote_repository_impl.dart';
+import '../../Domain/repository/coffee_local_repository.dart';
+import '../../Domain/repository/coffee_remote_repository.dart';
+import '../../Domain/usecases/fetch_image_usecase.dart';
+import '../../Domain/usecases/get_favorite_images_usecase.dart';
+import '../../Domain/usecases/save_image_usecase.dart';
 import 'package:http/http.dart' as http;
 
 // ApiService Provider

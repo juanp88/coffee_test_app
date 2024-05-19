@@ -1,5 +1,4 @@
-import 'package:coffee_test_app/utils/constants.dart';
-
+import '../../Core/utils/constants.dart';
 import '../../Domain/repository/coffee_remote_repository.dart';
 import '../remote/api_service.dart';
 

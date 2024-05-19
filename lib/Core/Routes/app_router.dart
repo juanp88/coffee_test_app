@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 
-import '../Presentation/favorites_screen.dart';
-import '../Presentation/main_screeen.dart';
-import '../Presentation/new_image_screen.dart';
-import '../Presentation/widgets/full_size_image_screen.dart';
+import '../../Presentation/favorites_screen.dart';
+import '../../Presentation/main_screeen.dart';
+import '../../Presentation/new_image_screen.dart';
+import '../../Presentation/widgets/full_size_image_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: [

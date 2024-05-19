@@ -3,7 +3,7 @@ import 'package:coffee_test_app/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/app_strings.dart';
+import '../Core/utils/app_strings.dart';
 import 'viewModel/coffee_notifier.dart';
 
 class NewImageScreen extends ConsumerWidget {
