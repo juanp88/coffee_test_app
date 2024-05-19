@@ -39,3 +39,9 @@ Generate Riverpod Code: Use the build_runner package to generate necessary River
 ```sh
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
+another option is to run this:
+
+```sh
+dart run build_runner watch
+```
+this way the watcher will listen for file changes and generate code on the go, as long as the terminal is active. 
