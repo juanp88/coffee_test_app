@@ -1,16 +1,41 @@
-# coffee_test_app
+# Coffee App
 
-A new Flutter project.
+This Flutter application allows users to save their favorite coffee images. The app uses the Riverpod package for state management and follows clean architecture principles.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Load a random coffee image from the internet.
+- Save favorite coffee images locally.
+- View favorite coffee images offline.
 
-A few resources to get you started if this is your first Flutter project:
+## Setup
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clone the repository:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    ```sh
+    git clone https://github.com/your_username/coffee_app.git
+    cd coffee_app
+    ```
+
+2. Install dependencies:
+
+    ```sh
+    flutter pub get
+    ```
+
+3. Run the application:
+
+    ```sh
+    flutter run
+    ```
+
+## Other considerations
+
+This project uses Riverpod annotations and Riverpod generator for related features, so it's necessary ro run the build_runner command 
+to make sure any change related with this annotations it's properly implemented:
+
+Generate Riverpod Code: Use the build_runner package to generate necessary Riverpod code:
+
+```sh
+flutter pub run build_runner build --delete-conflicting-outputs
+```
