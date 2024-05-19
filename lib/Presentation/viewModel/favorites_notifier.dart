@@ -16,8 +16,12 @@ class FavoritesNotifier extends _$FavoritesNotifier {
 
   Future<void> loadFavorites() async {
     state = FavoritesLoading();
-    final favorites = await getFavoriteImagesUseCase.execute();
-    state = FavoritesLoaded(favorites);
+    try {
+      final favorites = await getFavoriteImagesUseCase.execute();
+      state = FavoritesLoaded(favorites);
+    } catch (e) {
+      state = FavoritesError(e.toString().replaceFirst('Exception: ', ''));
+    }
   }
 }
 

@@ -6,7 +6,7 @@ part of 'favorites_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favoritesNotifierHash() => r'64a4145fd4a5814272de00ea93eb99aca75156f2';
+String _$favoritesNotifierHash() => r'c0a11e2581119a4640190849625b2e971d0bfbc1';
 
 /// See also [FavoritesNotifier].
 @ProviderFor(FavoritesNotifier)
