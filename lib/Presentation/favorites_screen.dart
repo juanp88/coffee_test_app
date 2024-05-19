@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'viewModel/coffee_notifier.dart';
-import 'widgets/fullsize_image_Screen.dart';
+import 'viewModel/favorites_notifier.dart';
+import 'widgets/full_size_image_screen.dart';
 
 class FavoritesScreen extends ConsumerStatefulWidget {
   const FavoritesScreen({super.key});
@@ -17,16 +16,18 @@ class FavoritesScreenState extends ConsumerState<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(coffeeNotifierProvider.notifier).loadFavorites();
+    // Schedule the loadFavorites call to run after the first frame.
+    Future.microtask(
+        () => ref.read(favoritesNotifierProvider.notifier).loadFavorites());
   }
 
   @override
   Widget build(BuildContext context) {
-    final coffeeState = ref.watch(coffeeNotifierProvider);
+    final favoritesState = ref.watch(favoritesNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Favorite Coffees')),
-      body: coffeeState is FavoritesLoaded
+      body: favoritesState is FavoritesLoaded
           ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
@@ -35,7 +36,7 @@ class FavoritesScreenState extends ConsumerState<FavoritesScreen> {
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
                 ),
-                itemCount: coffeeState.favoriteImages.length,
+                itemCount: favoritesState.favoriteImages.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -43,20 +44,22 @@ class FavoritesScreenState extends ConsumerState<FavoritesScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FullImageScreen(
-                            imagePath: coffeeState.favoriteImages[index],
+                            imagePath: favoritesState.favoriteImages[index],
                           ),
                         ),
                       );
                     },
                     child: Image.file(
-                      File(coffeeState.favoriteImages[index]),
+                      File(favoritesState.favoriteImages[index]),
                       fit: BoxFit.cover,
                     ),
                   );
                 },
               ),
             )
-          : const Center(child: Text('No favorites yet')),
+          : favoritesState is FavoritesLoading
+              ? const Center(child: CircularProgressIndicator())
+              : const Center(child: Text('No favorites yet')),
     );
   }
 }
