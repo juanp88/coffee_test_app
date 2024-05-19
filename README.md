@@ -13,7 +13,7 @@ This Flutter application allows users to save their favorite coffee images. The 
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/your_username/coffee_app.git
+    git clone https://github.com/juanp88/coffee_test_app/
     cd coffee_app
     ```
 
