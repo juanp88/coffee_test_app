@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../Domain/usecases/fetch_image_usecase.dart';
 import '../../Domain/usecases/get_favorite_images_usecase.dart';
@@ -26,7 +25,7 @@ class CoffeeNotifier extends _$CoffeeNotifier {
 
   Future<void> fetchCoffeeImage(BuildContext context) async {
     final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text(
@@ -48,15 +47,10 @@ class CoffeeNotifier extends _$CoffeeNotifier {
     await saveImageUseCase.execute(url);
   }
 
-  Future<void> loadFavorites() async {
-    final favorites = await getFavoriteImagesUseCase.execute();
-    state = FavoritesLoaded(favorites);
-  }
-
   Future<bool> checkInternetConnection() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-    return connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile;
+    return connectivityResult.contains(ConnectivityResult.wifi) ||
+        connectivityResult.contains(ConnectivityResult.mobile);
   }
 }
 
@@ -74,9 +68,4 @@ class CoffeeLoaded extends CoffeeState {
 class CoffeeError extends CoffeeState {
   final String message;
   CoffeeError(this.message);
-}
-
-class FavoritesLoaded extends CoffeeState {
-  final List<String> favoriteImages;
-  FavoritesLoaded(this.favoriteImages);
 }
