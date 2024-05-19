@@ -1,6 +1,16 @@
 # Coffee App
 
-This Flutter application allows users to save their favorite coffee images. The app uses the Riverpod package for state management and follows clean architecture principles.
+This Flutter application allows users to save their favorite coffee images. The app uses the Riverpod package for state management, go router for navigation and follows clean architecture principles.
+
+# Project structure
+
+The project follows clean architecture principles with a layered structure:
+
+    Domain Layer: Contains business logic and use cases.
+    Data Layer: Handles data operations, including API calls and local storage.
+    Presentation Layer: Manages the UI and state.
+    Core: Cetralize any app related feature like routes, providers, utils among others.
+
 
 ## Features
 
