@@ -4,7 +4,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../Core/Providers/coffee_providers.dart';
 import '../../Domain/usecases/fetch_image_usecase.dart';
-import '../../Domain/usecases/get_favorite_images_usecase.dart';
 import '../../Domain/usecases/save_image_usecase.dart';
 
 part 'coffee_notifier.g.dart';
@@ -13,45 +12,40 @@ part 'coffee_notifier.g.dart';
 class CoffeeNotifier extends _$CoffeeNotifier {
   late final FetchCoffeeImageUseCase fetchCoffeeImageUseCase;
   late final SaveImageUseCase saveImageUseCase;
-  late final GetFavoriteImagesUseCase getFavoriteImagesUseCase;
+  late final Connectivity connectivity;
   String? lastImageUrl;
 
   @override
   CoffeeState build() {
     fetchCoffeeImageUseCase = ref.watch(fetchCoffeeImageUseCaseProvider);
     saveImageUseCase = ref.watch(saveImageUseCaseProvider);
-    getFavoriteImagesUseCase = ref.watch(getFavoriteImagesUseCaseProvider);
+    connectivity = ref.watch(connectivityProvider);
     return CoffeeInitial();
   }
 
   Future<void> fetchCoffeeImage(BuildContext context) async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult.contains(ConnectivityResult.none)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text(
-                'No internet connection. Please check your connection and try again.')),
-      );
-    } else {
-      try {
+    try {
+      final connectivityResult = await connectivity.checkConnectivity();
+      if (connectivityResult.contains(ConnectivityResult.none)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text(
+                  'No internet connection. Please check your connection and try again.')),
+        );
+        state = CoffeeInitial(); // Ensure state is set to CoffeeInitial
+      } else {
         state = CoffeeLoading();
         final imageUrl = await fetchCoffeeImageUseCase.execute();
         lastImageUrl = imageUrl;
         state = CoffeeLoaded(imageUrl);
-      } catch (e) {
-        state = CoffeeError(e.toString().replaceFirst('Exception: ', ''));
       }
+    } catch (e) {
+      state = CoffeeError(e.toString().replaceFirst('Exception: ', ''));
     }
   }
 
   Future<void> saveImage(String url) async {
     await saveImageUseCase.execute(url);
-  }
-
-  Future<bool> checkInternetConnection() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
-    return connectivityResult.contains(ConnectivityResult.wifi) ||
-        connectivityResult.contains(ConnectivityResult.mobile);
   }
 }
 
