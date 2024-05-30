@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class FakeBuildContext extends Fake implements BuildContext {}
+import 'usecases/mock_dependencies.dart';
 
 void main() {
   setUpAll(() {
