@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../Core/Providers/coffee_providers.dart';
 import '../../Domain/usecases/fetch_image_usecase.dart';
@@ -68,4 +69,11 @@ class CoffeeLoaded extends CoffeeState {
 class CoffeeError extends CoffeeState {
   final String message;
   CoffeeError(this.message);
+}
+
+class MockCoffeeNotifier extends _$CoffeeNotifier
+    with Mock
+    implements CoffeeNotifier {
+  @override
+  CoffeeState build() => CoffeeLoaded('https://coffee.alexflipnote.dev/random');
 }
