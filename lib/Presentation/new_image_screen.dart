@@ -49,12 +49,14 @@ class NewImageScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              key: const Key('Btn_load_new_image'),
               onPressed: () => coffeeNotifier.fetchCoffeeImage(context),
               child: const Text(AppStrings.loadNewImage),
             ),
             const SizedBox(height: 10),
             if (coffeeState is CoffeeLoaded)
               ElevatedButton(
+                key: const Key('Btn_save_to_favorites'),
                 onPressed: () => coffeeNotifier.saveImage(coffeeState.imageUrl),
                 child: const Text(AppStrings.saveToFavorites),
               ),
