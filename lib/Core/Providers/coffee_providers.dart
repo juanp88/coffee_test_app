@@ -1,6 +1,6 @@
 import 'package:coffee_test_app/Core/utils/constants.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../Data/local/local_storage_service.dart';
 import '../../Data/remote/api_service.dart';
 import '../../Data/repositories/coffee_local_repository_impl.dart';
@@ -52,4 +52,8 @@ final getFavoriteImagesUseCaseProvider =
     Provider<GetFavoriteImagesUseCase>((ref) {
   final coffeeLocalRepository = ref.watch(coffeeLocalRepositoryProvider);
   return GetFavoriteImagesUseCase(coffeeLocalRepository);
+});
+
+final connectivityProvider = Provider<Connectivity>((ref) {
+  return Connectivity();
 });
