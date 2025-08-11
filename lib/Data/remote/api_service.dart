@@ -1,40 +1,49 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ApiService {
-  final String baseUrl;
-  final http.Client httpClient;
+  final Dio dio;
 
-  ApiService({required this.baseUrl, required this.httpClient});
+  ApiService({required String baseUrl}) : dio = Dio() {
+    dio.options.baseUrl = baseUrl;
+    dio.options.connectTimeout = const Duration(seconds: 10);
+    dio.options.receiveTimeout = const Duration(seconds: 10);
+
+    // Add interceptors for logging and error handling
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+    ));
+  }
 
   Future<Map<String, dynamic>> request({
     required String endpoint,
     String method = 'GET',
-    Map<String, dynamic>? body,
+    Map<String, dynamic>? data,
   }) async {
-    final url = Uri.parse('$baseUrl$endpoint');
-    late http.Response response;
+    try {
+      late Response response;
 
-    switch (method.toUpperCase()) {
-      case 'POST':
-        response = await httpClient.post(url, body: jsonEncode(body));
-        break;
-      case 'PUT':
-        response = await httpClient.put(url, body: jsonEncode(body));
-        break;
-      case 'DELETE':
-        response = await httpClient.delete(url);
-        break;
-      case 'GET':
-      default:
-        response = await httpClient.get(url);
-        break;
-    }
+      switch (method.toUpperCase()) {
+        case 'POST':
+          response = await dio.post(endpoint, data: data);
+          break;
+        case 'PUT':
+          response = await dio.put(endpoint, data: data);
+          break;
+        case 'DELETE':
+          response = await dio.delete(endpoint);
+          break;
+        case 'GET':
+        default:
+          response = await dio.get(endpoint);
+          break;
+      }
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to load data: ${response.statusCode}');
+      return response.data as Map<String, dynamic>;
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    } catch (e) {
+      throw Exception('Unexpected error: $e');
     }
   }
 }

@@ -10,14 +10,10 @@ import '../../Domain/repository/coffee_remote_repository.dart';
 import '../../Domain/usecases/fetch_image_usecase.dart';
 import '../../Domain/usecases/get_favorite_images_usecase.dart';
 import '../../Domain/usecases/save_image_usecase.dart';
-import 'package:http/http.dart' as http;
 
 // ApiService Provider
 final apiServiceProvider = Provider<ApiService>((ref) {
-  return ApiService(
-    baseUrl: Constants.baseUrl,
-    httpClient: http.Client(),
-  );
+  return ApiService(baseUrl: Constants.baseUrl);
 });
 
 // LocalStorageService Provider
