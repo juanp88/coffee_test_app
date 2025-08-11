@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../Core/Providers/coffee_providers.dart';
@@ -23,17 +22,12 @@ class CoffeeNotifier extends _$CoffeeNotifier {
     return CoffeeInitial();
   }
 
-  Future<void> fetchCoffeeImage(BuildContext context) async {
+  Future<void> fetchCoffeeImage() async {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
       if (connectivityResult.contains(ConnectivityResult.none)) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text(
-                  'No internet connection. Please check your connection and try again.')),
-        );
-        state = CoffeeInitial(); // Ensure state is set to CoffeeInitial
+        state = CoffeeError(
+            'No internet connection. Please check your connection and try again.');
       } else {
         state = CoffeeLoading();
         final imageUrl = await fetchCoffeeImageUseCase.execute();

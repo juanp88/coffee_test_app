@@ -5,13 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'usecases/mock_dependencies.dart';
-
 void main() {
-  setUpAll(() {
-    registerFallbackValue(FakeBuildContext());
-  });
-
   setUp(() {
     registerFallbackValue(MockCoffeeNotifier());
   });
@@ -64,7 +58,7 @@ void main() {
       (WidgetTester tester) async {
     // Arrange
     final mockNotifier = MockCoffeeNotifier();
-    when(() => mockNotifier.fetchCoffeeImage(any())).thenAnswer((_) async {});
+    when(() => mockNotifier.fetchCoffeeImage()).thenAnswer((_) async {});
 
     final container = ProviderContainer(
       overrides: [
@@ -86,7 +80,7 @@ void main() {
     await tester.pump();
 
     // Assert
-    verify(() => mockNotifier.fetchCoffeeImage(any())).called(1);
+    verify(() => mockNotifier.fetchCoffeeImage()).called(1);
   });
 
   testWidgets('Test save to favorites button is clickable',

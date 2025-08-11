@@ -14,8 +14,6 @@ void main() {
       MethodChannel('dev.fluttercommunity.plus/connectivity');
 
   setUpAll(() {
-    registerFallbackValue(FakeBuildContext());
-
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(connectivityChannel,
             (MethodCall methodCall) async {
@@ -69,7 +67,7 @@ void main() {
         .thenAnswer((_) async => imageUrl);
 
     // Act
-    await coffeeNotifier.fetchCoffeeImage(FakeBuildContext());
+    await coffeeNotifier.fetchCoffeeImage();
 
     // Assert
     expect(coffeeNotifier.state, isA<CoffeeLoaded>());
@@ -87,7 +85,7 @@ void main() {
         .thenThrow(Exception(errorMessage));
 
     // Act
-    await coffeeNotifier.fetchCoffeeImage(FakeBuildContext());
+    await coffeeNotifier.fetchCoffeeImage();
 
     // Assert
     expect(coffeeNotifier.state, isA<CoffeeError>());
@@ -95,16 +93,18 @@ void main() {
     verify(() => mockFetchCoffeeImageUseCase.execute()).called(1);
   });
 
-  test('fetchCoffeeImage shows SnackBar when no connectivity', () async {
+  test('fetchCoffeeImage shows error when no connectivity', () async {
     // Arrange
     when(() => mockConnectivity.checkConnectivity())
         .thenAnswer((_) async => Future.value([ConnectivityResult.none]));
 
     // Act
-    await coffeeNotifier.fetchCoffeeImage(FakeBuildContext());
+    await coffeeNotifier.fetchCoffeeImage();
 
     // Assert
     expect(coffeeNotifier.state, isA<CoffeeError>());
+    expect((coffeeNotifier.state as CoffeeError).message,
+        'No internet connection. Please check your connection and try again.');
   });
 
   test('saveImage calls SaveImageUseCase.execute', () async {
