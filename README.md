@@ -2,6 +2,8 @@
 
 A Flutter application that demonstrates modern mobile development practices by allowing users to discover and save their favorite coffee images. This project showcases **Clean Architecture**, **State Management with Riverpod**, and **Local Data Persistence**.
 
+<img width="1080" height="2400" alt="Image" src="https://github.com/user-attachments/assets/02e2fd42-6a0a-4917-b16f-6b8dc1d43e1c" />
+
 ## 🚀 Features
 
 - **Random Coffee Discovery**: Fetch random coffee images from a REST API
