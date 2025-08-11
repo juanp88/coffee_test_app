@@ -27,6 +27,7 @@ class CoffeeNotifier extends _$CoffeeNotifier {
     try {
       final connectivityResult = await connectivity.checkConnectivity();
       if (connectivityResult.contains(ConnectivityResult.none)) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               content: Text(
